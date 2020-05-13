@@ -47,7 +47,11 @@ For integration testing, the storage emulator [**Azurite**](https://github.com/A
 
     <file-identifier>
     
-    **Note- This file identifier can be used to download or delete the blob from azure storage
+    
+**Note -**
+
+    - The file identifier returned in response can be used to download, delete or copy the blob
+    - If storage container for the specified tenant is not present, then it will be created before blob is created inside it
     
 <br>
 <br>
@@ -67,6 +71,10 @@ For integration testing, the storage emulator [**Azurite**](https://github.com/A
 
     <streaming response>
     
+**Note -**
+
+    - Errors out if there is no storage container corresponding to the tenant in azure
+    
 <br>
 <br>
 
@@ -85,7 +93,10 @@ For integration testing, the storage emulator [**Azurite**](https://github.com/A
 
     HTTP/1.1 204 No Content
 
+**Note -**
 
+    - Errors out if there is no storage container corresponding to the tenant in azure
+    
 <br>
 <br>
 
@@ -114,3 +125,6 @@ For integration testing, the storage emulator [**Azurite**](https://github.com/A
       ...
     ]  
     
+**Note -**
+
+    - Errors out if there is no storage container corresponding to the tenant in azure
