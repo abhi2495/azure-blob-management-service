@@ -8,3 +8,7 @@ kotlinc.xml
 *.iml
 lib
 .DS_Store
+package-lock.json
+__blobstorage__/*
+azurite/*
+node_modules/*

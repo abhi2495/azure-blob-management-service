@@ -1,0 +1,12 @@
+{
+  "name": "azure-blob-management-service",
+  "version": "0.0.1",
+  "scripts": {
+    "azurite-help": "azurite help",
+    "azurite-start": "azurite  --location ./azurite --debug ./azurite/debug.log"
+  },
+  "private": true,
+  "dependencies": {
+    "azurite": "^3.7.0"
+  }
+}
