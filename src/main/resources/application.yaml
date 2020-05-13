@@ -1,0 +1,5 @@
+azure:
+  storage:
+    accountName: ${storageAccountName}
+    key: ${storageAccountKey}
+    baseUrl: https://%s.blob.core.windows.net
