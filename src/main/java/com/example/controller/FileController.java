@@ -26,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,6 +45,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
+@Validated
 public class FileController {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(FileController.class);
@@ -116,7 +118,8 @@ public class FileController {
       }
     });
     String contentDispositionHeader =
-        "attachment; filename=" + fileProperties.get(FILE_NAME_METADATA) + CONTENT_TYPE_TO_FILE_TYPE_MAP.get(fileProperties.get(FILE_TYPE_METADATA));
+        "attachment; filename=" + fileProperties.get(FILE_NAME_METADATA) +
+            CONTENT_TYPE_TO_FILE_TYPE_MAP.getOrDefault(fileProperties.get(FILE_TYPE_METADATA), "");
     httpHeaders.add(HttpHeaders.CONTENT_DISPOSITION, contentDispositionHeader);
     LOGGER.info("Now downloading actual content of file {}", fileId);
     StreamingResponseBody streamingResponseBody = outputStream -> {
@@ -140,7 +143,7 @@ public class FileController {
 
   @PostMapping(Routes.FILE_API_V1_COPY)
   public ResponseEntity<FileCopyReference[]> copyFile(
-      @RequestParam(value = COPY_FILE_IDS) List<String> fileIds) throws NotFoundException {
+      @RequestParam(value = COPY_FILE_IDS) @NotEmpty List<String> fileIds) throws NotFoundException {
     return ResponseEntity.ok(storageService.copy(getBucketName(), fileIds));
   }
 
