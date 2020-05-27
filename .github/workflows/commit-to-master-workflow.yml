@@ -3,8 +3,6 @@ name: Commit Workflow
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
 jobs:
   build:
@@ -22,18 +20,24 @@ jobs:
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v2
       with:
-        name: app.jar
+        name: app-jar
         path: build/libs/*.jar
   push-image:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: Download Jar
         uses: actions/download-artifact@v2
         with:
-          name: app.jar
-      - name: Display structure of downloaded files
+          name: app-jar
+      - name: Print Directory contents
         run: ls -R
-      - name: Print current workin directory
-        run: pwd
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v1.1.0
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: azure-blob-management-service
+          tags: latest
 
