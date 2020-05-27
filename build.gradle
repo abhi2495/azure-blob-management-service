@@ -57,3 +57,7 @@ task runAzurite() {
 }
 
 test.dependsOn runAzurite
+
+test {
+    testLogging.showStandardStreams = true
+}
