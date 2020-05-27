@@ -24,4 +24,15 @@ jobs:
       with:
         name: app.jar
         path: build/libs/*.jar
+  push-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Jar
+        uses: actions/download-artifact@v2
+        with:
+          name: app.jar
+      - name: Display structure of downloaded files
+        run: ls -R
+      - name: Print current workin directory
+        run: pwd
 
