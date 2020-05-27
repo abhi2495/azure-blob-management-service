@@ -22,6 +22,11 @@ jobs:
       with:
         name: app-jar
         path: build/libs/*.jar
+    - name: Upload Jacoco reports
+      uses: actions/upload-artifact@v2
+      with:
+        name: jacoco-reports
+        path: build/jacocoHtml/
   push-image:
     needs: [build]
     runs-on: ubuntu-latest
