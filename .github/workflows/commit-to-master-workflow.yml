@@ -25,6 +25,7 @@ jobs:
         name: app.jar
         path: build/libs/*.jar
   push-image:
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
       - name: Download Jar
