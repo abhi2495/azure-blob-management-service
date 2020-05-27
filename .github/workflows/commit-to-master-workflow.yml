@@ -1,4 +1,4 @@
-name: Commit Workflow
+name: Master Commit Workflow
 
 on:
   push:
@@ -31,8 +31,6 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: app-jar
-      - name: Print Directory contents
-        run: ls -R
       - name: Build and push Docker images
         uses: docker/build-push-action@v1.1.0
         with:
