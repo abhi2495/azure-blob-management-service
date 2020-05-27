@@ -8,9 +8,7 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 1.8
@@ -21,3 +19,9 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew clean build
+    - name: Upload Build Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: app.jar
+        path: build/libs/*.jar
+
