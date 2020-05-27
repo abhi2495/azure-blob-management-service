@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '2.2.7.RELEASE'
     id "com.github.node-gradle.node" version "2.2.3"
+    id 'jacoco'
 }
 
 apply plugin: 'io.spring.dependency-management'
@@ -61,3 +62,30 @@ test.dependsOn runAzurite
 test {
     testLogging.showStandardStreams = true
 }
+
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination file("${buildDir}/jacocoHtml")
+    }
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.60
+            }
+        }
+    }
+}
+
+test {
+    finalizedBy jacocoTestReport // report is always generated after tests run
+}
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+}
+
+check.dependsOn jacocoTestCoverageVerification
