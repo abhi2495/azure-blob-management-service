@@ -15,8 +15,6 @@ jobs:
         java-version: 1.8
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
-    - name: Echo repo name
-      run: echo ${{ github.repository }}
     - name: Build with Gradle
       env:
           storageAccountName: ${{ secrets.STORAGE_ACCOUNT_NAME }}
@@ -46,6 +44,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          repository: abhi2495/azure-blob-management-service
+          repository: ${{ github.repository }} #The owner and repository name. For example, abhi2495/Hello-World
           tags: latest
 
