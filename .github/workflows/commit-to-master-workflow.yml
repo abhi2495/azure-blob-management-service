@@ -15,8 +15,6 @@ jobs:
         java-version: 1.8
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
-    - name: Print branch name
-      run: echo ${GITHUB_REF#refs/*/}
     - name: Build with Gradle
       env:
           storageAccountName: ${{ secrets.STORAGE_ACCOUNT_NAME }}
@@ -47,5 +45,5 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: ${{ github.repository }} #The owner and repository name. For example, abhi2495/Hello-World
-          tags: latest
+          tags: latest-${GITHUB_REF#refs/*/}
 
