@@ -16,7 +16,7 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
-      run: ./gradlew clean build -P storageAccountName="abhiblobstore" -P storageAccountKey="${storageAccountKey}"
+      run: ./gradlew clean build -PstorageAccountName="abhiblobstore" -PstorageAccountKey="${storageAccountKey}"
       env:
           storageAccountName: ${{ secrets.STORAGE_ACCOUNT_NAME }}
           storageAccountKey: ${{ secrets.STORAGE_ACCOUNT_KEY }}
