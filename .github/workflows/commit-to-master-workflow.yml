@@ -18,7 +18,7 @@ jobs:
     - name: Build with Gradle
       uses: eskatos/gradle-command-action@v1
       with:
-        arguments: clean build -PstorageAccountName="abhiblobstore" -PstorageAccountKey="${storageAccountKey}
+        arguments: clean build -PstorageAccountName="abhiblobstore" -PstorageAccountKey="$storageAccountKey"
       env:
           storageAccountName: ${{ secrets.STORAGE_ACCOUNT_NAME }}
           storageAccountKey: ${{ secrets.STORAGE_ACCOUNT_KEY }}
