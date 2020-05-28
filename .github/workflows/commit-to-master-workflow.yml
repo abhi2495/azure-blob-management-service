@@ -17,6 +17,9 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew clean build
+      env:
+        storageAccountName: ${{ secrets.STORAGE_ACCOUNT_NAME }}
+        storageAccountKey: ${{ secrets.STORAGE_ACCOUNT_KEY }}
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v2
       with:
