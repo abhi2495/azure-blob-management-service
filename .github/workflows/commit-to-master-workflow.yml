@@ -17,9 +17,6 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew clean build
-      env:
-        storageAccountName: ${{ secrets.STORAGE_ACCOUNT_NAME }}
-        storageAccountKey: ${{ secrets.STORAGE_ACCOUNT_KEY }}
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v2
       with:
@@ -41,6 +38,9 @@ jobs:
           name: app-jar
       - name: Build and push Docker images
         uses: docker/build-push-action@v1.1.0
+        env:
+          storageAccountName: ${{ secrets.STORAGE_ACCOUNT_NAME }}
+          storageAccountKey: ${{ secrets.STORAGE_ACCOUNT_KEY }}
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
