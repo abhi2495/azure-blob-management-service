@@ -57,7 +57,7 @@ jobs:
       - name: Fetch helm dependencies
         run: helm dependency update ./charts/azure-blob-management-service
       - name: Run helm upgrade
-        run: helm upgrade dev ./charts/azure-blob-management-service
+        run: helm upgrade --install dev ./charts/azure-blob-management-service
       - name: Run kubectl check
         run: kubectl version
     
