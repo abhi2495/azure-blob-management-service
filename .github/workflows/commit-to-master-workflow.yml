@@ -39,4 +39,26 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: ${{ github.repository }} #The owner and repository name. For example, abhi2495/Hello-World
           tags: latest
+  deploy-to-dev:
+    needs: [push-image]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set Kubernetes context
+        uses: azure/aks-set-context@v1
+        with:
+          creds: '${{ secrets.AZURE_CREDENTIALS }}'
+          resource-group: 'rg-jda-lso-dev-eus-02'
+          cluster-name: 'aks-jda-lso-dev-eus-02'
+      - name: Install Helm
+        uses: Azure/setup-helm@v1
+      - name: Add azure to helm repo list
+        run: helm repo add azure https://helmchartsrepo.blob.core.windows.net/helm/\?se\=2021-05-31\&sp\=rl\&sv\=2018-11-09\&sr\=c\&sig\=21czaRxY8hmYcG6UK38KtRvB1nl%2BhI69WML3oCRShbg%3D
+      - name: Fetch helm dependencies
+        run: helm dependency update ./charts/azure-blob-management-service
+      - name: Run helm upgrade
+        run: helm upgrade --install dev ./charts/azure-blob-management-service
+      - name: Run kubectl check
+        run: kubectl version
+    
 

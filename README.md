@@ -2,7 +2,7 @@
 
 This application exposes REST APIs to perform the basic file operations (upload,download,delete,copy) 
 in Azure Blob Storage Account. We have followed **container per tenant** principal here i.e for each tenant,
-there is a dedicated container inside which blobs related to that tenant are stored.
+there is a dedicated container inside which blobs related to that tenant are stored. 
 
 The [**v12 azure sdk for java**](https://github.com/Azure/azure-sdk-for-java/tree/master/sdk/storage/azure-storage-blob) is being used is here.
  
