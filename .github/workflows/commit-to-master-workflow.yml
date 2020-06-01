@@ -44,6 +44,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Set Kubernetes context
+        uses: azure/aks-set-context@v1
+        with:
+          creds: '${{ secrets.AZURE_CREDENTIALS }}'
+          resource-group: 'rg-jda-lso-dev-eus-02'
+          cluster-name: 'aks-jda-lso-dev-eus-02'
       - name: Install Helm
         uses: Azure/setup-helm@v1
       - name: Add azure to helm repo list
