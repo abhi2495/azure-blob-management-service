@@ -39,4 +39,16 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: ${{ github.repository }} #The owner and repository name. For example, abhi2495/Hello-World
           tags: latest
+  deploy-to-dev:
+    needs: [push-image]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Helm
+        uses: Azure/setup-helm@v1
+      - name: Add azure to helm repo list
+        run: helm repo add azure https://helmchartsrepo.blob.core.windows.net/helm/\?se\=2021-05-31\&sp\=rl\&sv\=2018-11-09\&sr\=c\&sig\=21czaRxY8hmYcG6UK38KtRvB1nl%2BhI69WML3oCRShbg%3D
+      - name: Dry run helm
+        run: helm install --debug --dry-run dev ./charts/azure-blob-management-service
+    
 
