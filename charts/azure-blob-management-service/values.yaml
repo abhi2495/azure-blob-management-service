@@ -1,0 +1,11 @@
+base-microservice:
+  nameOverride: azure-blob-management-service
+  image:
+    repository: abhi2495/azure-blob-management-service
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 250m
+      memory: 256Mi
