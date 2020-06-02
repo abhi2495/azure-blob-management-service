@@ -11,15 +11,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0 #Disabling shallow clone
     - name: Set up JDK 1.8
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    - name: PR branch name
-      run: echo ${{ github.event.pull_request.head.ref }}
     - name: Build with Gradle
       env:
           storageAccountName: ${{ secrets.STORAGE_ACCOUNT_NAME }}
           storageAccountKey: ${{ secrets.STORAGE_ACCOUNT_KEY }}
           GITHUB_TOKEN: ${{ secrets.SONAR_GITHUB_TOKEN }}
-      run: ./gradlew clean build sonarqube -P storageAccountName=$storageAccountName -P storageAccountKey=$storageAccountKey -Dsonar.pullrequest.key=${{ github.event.pull_request.number }} -Dsonar.pullrequest.branch=${{ github.event.pull_request.head.ref }} -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=565795bb1aaa60247325f269ed8545174ee49887 -Dsonar.organization=abhi-dummy-org -Dsonar.coverage.jacoco.xmlReportPaths=build/jacoco-report.xml 
+      run: ./gradlew clean build sonarqube -P storageAccountName=$storageAccountName -P storageAccountKey=$storageAccountKey -Dsonar.pullrequest.key=${{ github.event.pull_request.number }} -Dsonar.pullrequest.branch=${{ github.event.pull_request.head.ref }} -Dsonar.pullrequest.base=master -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=565795bb1aaa60247325f269ed8545174ee49887 -Dsonar.organization=abhi-dummy-org -Dsonar.coverage.jacoco.xmlReportPaths=build/jacoco-report.xml 
