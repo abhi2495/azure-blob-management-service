@@ -138,6 +138,18 @@ public class FileControllerTest {
 
   }
 
+  @Test
+  public void test_greet() {
+    RestTemplate restTemplate = new RestTemplate();
+    UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.newInstance().scheme("http")
+        .host("localhost").port(8080);
+
+    ResponseEntity<String> greetApiResponse = restTemplate.exchange(uriComponentsBuilder.path(Routes.GREET_API)
+        .buildAndExpand(TENANT_ID).toUriString(), HttpMethod.GET, null, String.class);
+
+    System.out.println(greetApiResponse.getBody());
+  }
+
   private String getFileUrl() {
     UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.newInstance().scheme("http")
         .host("localhost").port(8080);
