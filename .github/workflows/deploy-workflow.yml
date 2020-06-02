@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy Workflow
 
 on:
   deployment
@@ -14,5 +14,5 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    - name: Print deployment event payload
-      run: echo ${{ github.event.deployment }}
+    - name: Print environment and branch
+      run: echo "${{ github.event.deployment.ref }} to be deployed to ${{ github.event.deployment.environment }}"
