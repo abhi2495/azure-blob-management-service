@@ -3,10 +3,12 @@ plugins {
     id 'org.springframework.boot' version '2.2.7.RELEASE'
     id "com.github.node-gradle.node" version "2.2.3"
     id 'jacoco'
+    id "org.sonarqube" version "2.8"
 }
 
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'com.github.node-gradle.node'
+apply plugin: "org.sonarqube"
 
 group 'com.example'
 version '1.0-SNAPSHOT'
@@ -66,8 +68,9 @@ test {
 
 jacocoTestReport {
     reports {
-        xml.enabled false
+        xml.enabled true
         csv.enabled false
+        xml.destination file("${buildDir}/jacoco-report.xml")
         html.destination file("${buildDir}/jacocoHtml")
     }
 }
