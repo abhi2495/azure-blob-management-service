@@ -15,8 +15,11 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
+    - name: print pr event
+      run: echo ${{ github.event.pull_request.number }}
     - name: Build with Gradle
       env:
           storageAccountName: ${{ secrets.STORAGE_ACCOUNT_NAME }}
           storageAccountKey: ${{ secrets.STORAGE_ACCOUNT_KEY }}
-      run: ./gradlew clean build -P storageAccountName=$storageAccountName -P storageAccountKey=$storageAccountKey
+          GITHUB_TOKEN: ${{ secrets.SONAR_GITHUB_TOKEN }}
+      run: ./gradlew clean build -P storageAccountName=$storageAccountName -P storageAccountKey=$storageAccountKey 
