@@ -2,8 +2,8 @@ name: Branch commit workflow
 
 on:
   push:
-    branches:
-      - '!master'
+    branches-ignore:
+      - 'master'
 
 jobs:
   branch-build:
