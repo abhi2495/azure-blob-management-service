@@ -21,10 +21,10 @@ jobs:
       uses: deliverybot/deployment-status@v1.0.0
       with:
         state: 'success'
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.DEPLOY_TOKEN }}
     - name: Deployment failure
       if: failure()
       uses: 'deliverybot/deployment-status@v1.0.0'
       with:
         state: 'failure'
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.DEPLOY_TOKEN }}
