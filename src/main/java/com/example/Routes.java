@@ -10,7 +10,7 @@ public final class Routes {
   public static final String FILE_API_V1 = TENANT_API_V1 + "/file";
   public static final String FILE_API_V1_ID = TENANT_API_V1 + "/file/{id}";
   public static final String FILE_API_V1_COPY = TENANT_API_V1 + "/copyFile";
-
+  public static final String GREET_API = TENANT_API_V1 + "/greet";
   private Routes() {
   }
 }

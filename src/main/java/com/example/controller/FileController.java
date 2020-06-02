@@ -56,6 +56,11 @@ public class FileController {
     this.storageService = storageService;
   }
 
+  @GetMapping(Routes.GREET_API)
+  public ResponseEntity<String> greet() {
+    return ResponseEntity.status(HttpStatus.OK).body("Hello " + TenancyContextHolder.getContext().getTenantId() + "!!");
+  }
+
   @PostMapping(Routes.FILE_API_V1)
   public ResponseEntity<String> saveFile(
       @RequestBody byte[] fileContents,
