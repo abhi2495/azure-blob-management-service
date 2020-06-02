@@ -10,4 +10,4 @@ base-microservice:
       cpu: 250m
       memory: 256Mi
   probe:
-    initialDelaySeconds: 120
+    initialDelaySeconds: 180
