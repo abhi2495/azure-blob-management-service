@@ -8,7 +8,7 @@ The [**v12 azure sdk for java**](https://github.com/Azure/azure-sdk-for-java/tre
  
 For integration testing, the storage emulator [**Azurite**](https://github.com/Azure/Azurite) has been leveraged.
 
-
+ 
 <br>
 <br>
 
