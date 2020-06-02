@@ -1,4 +1,4 @@
-name: Deploy Workflow
+name: Deploy To Higher Envs (QA,Prod) Workflow
 
 on:
   deployment
