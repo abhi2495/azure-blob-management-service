@@ -74,6 +74,8 @@ jobs:
         run: |
           chmod +x ./k8s-secrets-appender.sh
           ./k8s-secrets-appender.sh "storageAccountName=$storageAccountName storageAccountKey=$storageAccountKey"
+      - name: Print Values file
+        run: cat ./charts/azure-blob-management-service/values.yaml
       - name: Run helm upgrade
         run: helm upgrade --install dev ./charts/azure-blob-management-service
     
