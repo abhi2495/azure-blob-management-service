@@ -15,7 +15,9 @@ read -a MAP_ENTRIES <<<"$MAP_DATA"
 for MAP_ENTRY in "${MAP_ENTRIES[@]}"; do
   KEY="$( cut -d '=' -f 1 <<< "$MAP_ENTRY" )";
   VAL="$( cut -d '=' -f 2- <<< "$MAP_ENTRY" )";
-  ENCODED_VAL=$(echo $VAL | base64)
+  ENCODED_VAL=$(echo -n $VAL | base64 -w 0)
+# Note : echo -n removes trailing newline which is added by default
+# Note : base64 by default wraps if the encoded length is more than 76. To disable wrapping we are using -w 0
   YAMLSTR="$YAMLSTR\n      $KEY: $ENCODED_VAL"
 done
 
