@@ -71,7 +71,7 @@ jobs:
         env:
           storageAccountName: ${{ secrets.STORAGE_ACCOUNT_NAME }}
           storageAccountKey: ${{ secrets.STORAGE_ACCOUNT_KEY }}
-        run: sh ./k8s-secrets-appender.sh 'storageAccountName=$storageAccountName storageAccountKey=$storageAccountKey'
+        run: sh ./k8s-secrets-appender.sh "storageAccountName=$storageAccountName storageAccountKey=$storageAccountKey"
       - name: Run helm upgrade
         run: helm upgrade --install dev ./charts/azure-blob-management-service
     

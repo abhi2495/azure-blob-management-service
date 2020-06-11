@@ -13,11 +13,8 @@ read -a MAP_ENTRIES <<<"$MAP_DATA"
 
 
 for MAP_ENTRY in "${MAP_ENTRIES[@]}"; do
-  echo "$MAP_ENTRY"
   KEY="$( cut -d '=' -f 1 <<< "$MAP_ENTRY" )";
   VAL="$( cut -d '=' -f 2- <<< "$MAP_ENTRY" )";
-  echo "$KEY"
-  echo "$VAL"
   ENCODED_VAL=$(echo $VAL | base64)
   YAMLSTR="$YAMLSTR\n      $KEY: $ENCODED_VAL"
 done
