@@ -94,6 +94,8 @@ jacocoTestReport {
 
 check.dependsOn jacocoTestCoverageVerification
 
+/*
 processResources {
     expand(project.properties)
 }
+ */

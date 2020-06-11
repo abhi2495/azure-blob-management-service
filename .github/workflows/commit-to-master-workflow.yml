@@ -15,10 +15,7 @@ jobs:
       with:
         java-version: 1.8
     - name: Build with Gradle
-      env:
-          storageAccountName: ${{ secrets.STORAGE_ACCOUNT_NAME }}
-          storageAccountKey: ${{ secrets.STORAGE_ACCOUNT_KEY }}
-      run: ./gradlew clean build -P storageAccountName=$storageAccountName -P storageAccountKey=$storageAccountKey
+      run: ./gradlew clean build
   sonar-scan:
     needs: [build]
     runs-on: ubuntu-latest
@@ -32,7 +29,7 @@ jobs:
       - name: Run sonar build
         env:
           GITHUB_TOKEN: ${{ secrets.SONAR_GITHUB_TOKEN }}
-        run: ./gradlew sonarqube -P storageAccountName=$storageAccountName -P storageAccountKey=$storageAccountKey -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_LOGIN_TOKEN }} -Dsonar.organization=abhi-dummy-org -Dsonar.coverage.jacoco.xmlReportPaths=build/jacoco-report.xml
+        run: ./gradlew sonarqube -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_LOGIN_TOKEN }} -Dsonar.organization=abhi-dummy-org -Dsonar.coverage.jacoco.xmlReportPaths=build/jacoco-report.xml
   push-image:
     needs: [build]
     runs-on: ubuntu-latest
@@ -44,10 +41,7 @@ jobs:
         with:
           java-version: 1.8
       - name: Create Jar with Gradle
-        env:
-          storageAccountName: ${{ secrets.STORAGE_ACCOUNT_NAME }}
-          storageAccountKey: ${{ secrets.STORAGE_ACCOUNT_KEY }}
-        run: ./gradlew clean bootJar -P storageAccountName=$storageAccountName -P storageAccountKey=$storageAccountKey
+        run: ./gradlew clean bootJar
       - name: Build and push Docker images
         uses: docker/build-push-action@v1.1.0
         with:
@@ -73,6 +67,11 @@ jobs:
         run: helm repo add azure https://helmchartsrepo.blob.core.windows.net/helm/\?se\=2021-05-31\&sp\=rl\&sv\=2018-11-09\&sr\=c\&sig\=21czaRxY8hmYcG6UK38KtRvB1nl%2BhI69WML3oCRShbg%3D
       - name: Fetch helm dependencies
         run: helm dependency update ./charts/azure-blob-management-service
+      - name: Add secrets
+        env:
+          storageAccountName: ${{ secrets.STORAGE_ACCOUNT_NAME }}
+          storageAccountKey: ${{ secrets.STORAGE_ACCOUNT_KEY }}
+        run: sh ./k8s-secrets-appender.sh 'storageAccountName=$storageAccountName storageAccountKey=$storageAccountKey'
       - name: Run helm upgrade
         run: helm upgrade --install dev ./charts/azure-blob-management-service
     
