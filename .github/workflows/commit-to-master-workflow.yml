@@ -67,16 +67,14 @@ jobs:
         run: helm repo add azure https://helmchartsrepo.blob.core.windows.net/helm/\?se\=2021-05-31\&sp\=rl\&sv\=2018-11-09\&sr\=c\&sig\=21czaRxY8hmYcG6UK38KtRvB1nl%2BhI69WML3oCRShbg%3D
       - name: Fetch helm dependencies
         run: helm dependency update ./charts/azure-blob-management-service
-      - name: Add secrets
+      - name: Inject secrets
         env:
           storageAccountName: ${{ secrets.STORAGE_ACCOUNT_NAME }}
           storageAccountKey: ${{ secrets.STORAGE_ACCOUNT_KEY }}
         run: |
           chmod +x ./k8s-secrets-appender.sh
           ./k8s-secrets-appender.sh "storageAccountName=$storageAccountName storageAccountKey=$storageAccountKey"
-      - name: Print Values file
-        run: cat ./charts/azure-blob-management-service/values.yaml
-      - name: Run helm upgrade
+      - name: Deploy dev release to kubernetes
         run: helm upgrade --install dev ./charts/azure-blob-management-service
     
 

@@ -20,7 +20,5 @@ jobs:
         java-version: 1.8
     - name: Gradle build with Sonar Scan
       env:
-          storageAccountName: ${{ secrets.STORAGE_ACCOUNT_NAME }}
-          storageAccountKey: ${{ secrets.STORAGE_ACCOUNT_KEY }}
           GITHUB_TOKEN: ${{ secrets.SONAR_GITHUB_TOKEN }}
-      run: ./gradlew clean build sonarqube -P storageAccountName=$storageAccountName -P storageAccountKey=$storageAccountKey -Dsonar.pullrequest.key=${{ github.event.pull_request.number }} -Dsonar.pullrequest.branch=${{ github.event.pull_request.head.ref }} -Dsonar.pullrequest.base=master -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_LOGIN_TOKEN }} -Dsonar.organization=abhi-dummy-org -Dsonar.coverage.jacoco.xmlReportPaths=build/jacoco-report.xml 
+      run: ./gradlew clean build sonarqube -Dsonar.pullrequest.key=${{ github.event.pull_request.number }} -Dsonar.pullrequest.branch=${{ github.event.pull_request.head.ref }} -Dsonar.pullrequest.base=master -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_LOGIN_TOKEN }} -Dsonar.organization=abhi-dummy-org -Dsonar.coverage.jacoco.xmlReportPaths=build/jacoco-report.xml
