@@ -14,6 +14,15 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
+    - name: Add secrets
+        env:
+          storageAccountName: ${{ secrets.STORAGE_ACCOUNT_NAME }}
+          storageAccountKey: ${{ secrets.STORAGE_ACCOUNT_KEY }}
+        run: |
+          chmod +x ./k8s-secrets-appender.sh
+          ./k8s-secrets-appender.sh "storageAccountName=$storageAccountName storageAccountKey=$storageAccountKey"
+          - name: Print Values file
+            run: cat ./charts/azure-blob-management-service/values.yaml
     - name: Build with Gradle
       run: ./gradlew clean build
   sonar-scan:

@@ -19,7 +19,7 @@ for MAP_ENTRY in "${MAP_ENTRIES[@]}"; do
   YAMLSTR="$YAMLSTR\n      $KEY: $ENCODED_VAL"
 done
 
-echo "$YAMLSTR" > secrets-data.yaml
+echo -e "$YAMLSTR" > secrets-data.yaml
 
 cat secrets-data.yaml >> charts/azure-blob-management-service/values.yaml
 
