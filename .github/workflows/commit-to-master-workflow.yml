@@ -22,7 +22,7 @@ jobs:
         chmod +x ./k8s-secrets-appender.sh
         ./k8s-secrets-appender.sh "storageAccountName=$storageAccountName storageAccountKey=$storageAccountKey"
     - name: Print Values file
-        run: cat ./charts/azure-blob-management-service/values.yaml
+      run: cat ./charts/azure-blob-management-service/values.yaml
     - name: Build with Gradle
       run: ./gradlew clean build
   sonar-scan:
