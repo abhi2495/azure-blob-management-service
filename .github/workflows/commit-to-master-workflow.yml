@@ -58,9 +58,9 @@ jobs:
       - name: Set Kubernetes context
         uses: azure/aks-set-context@v1
         with:
-          creds: '${{ secrets.AZURE_CREDENTIALS }}'
-          resource-group: 'rg-jda-lso-dev-eus-02'
-          cluster-name: 'aks-jda-lso-dev-eus-02'
+          creds: "${{ secrets.AZURE_CREDENTIALS }}"
+          resource-group: "${{ secrets.K8S_CLUSTER_RESOURCE_GROUP_NAME }}"
+          cluster-name: "${{ secrets.K8S_CLUSTER_NAME }}"
       - name: Install Helm
         uses: Azure/setup-helm@v1
       - name: Add azure to helm repo list
@@ -75,6 +75,6 @@ jobs:
           chmod +x ./k8s-secrets-appender.sh
           ./k8s-secrets-appender.sh "storageAccountName=$storageAccountName storageAccountKey=$storageAccountKey"
       - name: Deploy dev release to kubernetes
-        run: helm upgrade --install dev ./charts/azure-blob-management-service
-    
-
+        run: helm upgrade --install azure-blob-management-service ./charts/azure-blob-management-service --set base-microservice.ingress.host="blobsvc.centralus.cloudapp.azure.com"
+      - name: Associate domain name with the public IP of ingress controller
+        run: ./dns-associator.sh  "blobsvc"

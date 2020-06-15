@@ -11,3 +11,7 @@ base-microservice:
       memory: 500Mi
   probe:
     initialDelaySeconds: 120
+  nginx-ingress:
+    enabled: true
+  ingress:
+    enabled: true
