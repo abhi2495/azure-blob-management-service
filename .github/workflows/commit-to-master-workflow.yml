@@ -55,7 +55,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Set Kubernetes context
+      - name: Set Kubernetes context to dev environment
         uses: azure/aks-set-context@v1
         with:
           creds: "${{ secrets.AZURE_CREDENTIALS }}"
@@ -63,7 +63,7 @@ jobs:
           cluster-name: "${{ secrets.K8S_CLUSTER_NAME }}"
       - name: Install Helm
         uses: Azure/setup-helm@v1
-      - name: Add azure to helm repo list
+      - name: Add azure storage to helm charts repo list
         run: helm repo add azure https://helmchartsrepo.blob.core.windows.net/helm/\?se\=2021-05-31\&sp\=rl\&sv\=2018-11-09\&sr\=c\&sig\=21czaRxY8hmYcG6UK38KtRvB1nl%2BhI69WML3oCRShbg%3D
       - name: Fetch helm dependencies
         run: helm dependency update ./charts/azure-blob-management-service
