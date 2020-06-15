@@ -76,7 +76,11 @@ jobs:
           ./k8s-secrets-appender.sh "storageAccountName=$storageAccountName storageAccountKey=$storageAccountKey"
       - name: Deploy dev release to kubernetes
         run: helm upgrade --install azure-blob-management-service ./charts/azure-blob-management-service --set base-microservice.ingress.host="blobsvc.centralus.cloudapp.azure.com"
-      - name: Associate domain name with the public IP of ingress controller
+      - name: Authenticate to azure for running cli script
+        uses: Azure/login@v1.1
+        with:
+          creds: "${{ secrets.AZURE_CREDENTIALS }}"
+      - name: Run script to ssociate domain name with the public IP of ingress controller
         run: |
           chmod +x ./dns-associator.sh
           ./dns-associator.sh "blobsvc"
